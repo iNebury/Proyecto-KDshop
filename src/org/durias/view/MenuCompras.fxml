@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane layoutX="10.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1162.0" stylesheets="@../resource/FrescoMarket.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.durias.controller.MenuClientesController">
+   <children>
+      <ImageView fitHeight="597.0" fitWidth="1175.0" layoutX="-11.0" layoutY="-19.0" pickOnBounds="true">
+         <image>
+            <Image url="@../images/2.png" />
+         </image>
+      </ImageView>
+      <GridPane layoutX="373.0" layoutY="102.0" prefHeight="90.0" prefWidth="262.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="numeroDocumento" GridPane.halignment="CENTER" />
+            <TextField fx:id="txtNumDoc" GridPane.columnIndex="1" />
+            <Label text="descripcionCompra" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <TextField fx:id="txtDescC" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="totalDocumento" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <TextField fx:id="txtTotal" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+      <TableView fx:id="tblClientes" layoutX="247.0" layoutY="201.0" prefHeight="320.0" prefWidth="601.0" styleClass="column-header" stylesheets="@../resource/FrescoMarket.css">
+        <columns>
+          <TableColumn fx:id="colNumDoc" minWidth="130.0" prefWidth="110.0" text="numeroDocumento" />
+            <TableColumn fx:id="colFechaDoc" minWidth="140.0" prefWidth="130.0" text="fechaDocumento" />
+            <TableColumn fx:id="colDesC" minWidth="160.0" prefWidth="129.0" text="descripcionCompra" />
+            <TableColumn fx:id="colTotalDoc" minWidth="170.0" prefWidth="150.0" text="totalDocumento" />
+        </columns>
+      </TableView>
+      <GridPane layoutX="28.0" layoutY="147.0" prefHeight="220.0" prefWidth="200.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#editar" prefHeight="47.0" prefWidth="200.0" text="UPDATE" />
+            <Button fx:id="btnReporte" mnemonicParsing="false" prefHeight="46.0" prefWidth="200.0" text="REPORTE" GridPane.rowIndex="1" />
+            <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#Agregar" prefHeight="47.0" prefWidth="200.0" text="ADD" GridPane.rowIndex="2" />
+            <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminar" prefHeight="51.0" prefWidth="200.0" text="DELETE" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+      <DatePicker fx:id="calFechaDoc" layoutX="778.0" layoutY="102.0" />
+      <Label layoutX="665.0" layoutY="108.0" text="fechaDocumento" />
+   </children>
+</AnchorPane>

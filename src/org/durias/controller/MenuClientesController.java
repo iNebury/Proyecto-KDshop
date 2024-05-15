@@ -1,4 +1,3 @@
-
 package org.durias.controller;
 
 import java.net.URL;
@@ -65,6 +64,8 @@ public class MenuClientesController implements Initializable {
     private TextField txtNombreC;
     @FXML
     private TextField txtTelC;
+    @FXML
+    private Button btnRegresar;
 
     private enum operaciones {
         AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NULL
@@ -76,6 +77,14 @@ public class MenuClientesController implements Initializable {
         cargarDatos();
     }
 
+    public Principal getEscenarioPrincipal(){
+        return escenarioPrincipal;
+    }
+    
+    public void setEscenarioPrincipal(Principal escenarioPrincipal) {
+        this.escenarioPrincipal = escenarioPrincipal;
+    }
+    
     public void seleccionar() {
         txtCodC.setText(String.valueOf(((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getCodigoCliente()));
         txtNombreC.setText(((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getNombreCliente());
@@ -304,8 +313,9 @@ public class MenuClientesController implements Initializable {
 
     @FXML
     public void handleButtonAction(ActionEvent event) {
-
+        if (event.getSource() == btnRegresar) {
+            escenarioPrincipal.menuPrincipalView();
+        }
     }
 
-}
-
+}   

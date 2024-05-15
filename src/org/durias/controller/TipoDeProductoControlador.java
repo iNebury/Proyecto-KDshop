@@ -46,16 +46,29 @@ public class TipoDeProductoControlador implements Initializable {
     private TextField txtcodTP;
     @FXML
     private TextField txtdesP;
+    @FXML
+    private Button btnRegresar;
 
     private enum operaciones {
         AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NULL
     }
     private operaciones tipoDeOperaciones = operaciones.NULL;
+    
+    
+     public Principal getEscenarioPrincipal(){
+        return escenarioPrincipal;
+    }
+    
+    public void setEscenarioPrincipal(Principal escenarioPrincipal) {
+        this.escenarioPrincipal = escenarioPrincipal;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cargarDatos();
     }
+    
+   
 
     public void seleccionar() {
         txtcodTP.setText(String.valueOf(((TipoDeProducto) tblTipoDeProducto.getSelectionModel().getSelectedItem()).getCodigoTipoProducto()));
@@ -235,7 +248,9 @@ public class TipoDeProductoControlador implements Initializable {
 
     @FXML
     public void handleButtonAction(ActionEvent event) {
-
+       if (event.getSource() == btnRegresar) {
+            escenarioPrincipal.menuPrincipalView();
+        }
     }
 
 }

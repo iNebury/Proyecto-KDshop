@@ -56,6 +56,9 @@ public class CargoEmpleadoControlador implements Initializable {
 
     @FXML
     private TextField txtNombreC;
+    
+    @FXML
+    private Button btnRegresar;
 
     private enum operaciones {
         AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NULL
@@ -66,7 +69,15 @@ public class CargoEmpleadoControlador implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         cargarDatos();
     }
-
+    
+     public Principal getEscenarioPrincipal(){
+        return escenarioPrincipal;
+    }
+    
+    public void setEscenarioPrincipal(Principal escenarioPrincipal) {
+        this.escenarioPrincipal = escenarioPrincipal;
+    }   
+    
     public void seleccionar() {
         txtCodE.setText(String.valueOf(((CargoEmpleado) tblCargo.getSelectionModel().getSelectedItem()).getCodigoCargoEmpleado()));
         txtNombreC.setText(((CargoEmpleado) tblCargo.getSelectionModel().getSelectedItem()).getNombreCargo());
@@ -255,6 +266,9 @@ public class CargoEmpleadoControlador implements Initializable {
 
     @FXML
     public void handleButtonAction(ActionEvent event) {
+        if (event.getSource() == btnRegresar) {
+            escenarioPrincipal.menuPrincipalView();
+        }
 
     }
 

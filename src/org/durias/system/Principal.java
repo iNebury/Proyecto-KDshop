@@ -14,10 +14,9 @@ import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import org.durias.bean.CargoEmpleado;
+import javafx.stage.Stage; 
 import org.durias.bean.Compras;
-import org.durias.bean.TipoDeProducto;
+import org.durias.controller.TipoDeProductoControlador;
 import org.durias.controller.CargoEmpleadoControlador;
 import org.durias.controller.MenuClientesController;
 import org.durias.controller.MenuPrincipalControlador;
@@ -71,10 +70,10 @@ public class Principal extends Application {
     public void menuClientes(){
         try{
             MenuClientesController menuClientes = (MenuClientesController)cambiarEscena("MenuClientes.fxml", 1175, 597);
-           
+            menuClientes.setEscenarioPrincipal(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
-            e.printStackTrace();
+
         }
     }
     
@@ -89,7 +88,8 @@ public class Principal extends Application {
     
     public void tipoDeProductoView(){
         try{
-            TipoDeProducto tipoDeProducto = (TipoDeProducto)cambiarEscena("TipoDeProducto.fxml", 1175, 597);
+            TipoDeProductoControlador tipoDeProducto = (TipoDeProductoControlador)cambiarEscena("TipoDeProducto.fxml", 1175, 597);
+            tipoDeProducto.setEscenarioPrincipal(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -107,7 +107,8 @@ public class Principal extends Application {
     
     public void CargoEmpleados(){
         try{
-            CargoEmpleado cargos = (CargoEmpleado)cambiarEscena("CargoEmpleadosView.fxml", 1175, 597);
+            CargoEmpleadoControlador cargos = (CargoEmpleadoControlador)cambiarEscena("CargoEmpleadosView.fxml", 1175, 597);
+            cargos.setEscenarioPrincipal(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
             e.printStackTrace();

@@ -2,6 +2,8 @@ drop database if exists dbKDShop;
 
 create database dbKDShop;
 
+set global time_zone= '-6:00';
+
 use dbKDShop;
 
 create table Clientes(
@@ -57,7 +59,6 @@ create table Productos(
 	precioUnitario decimal(10,2),
 	precioDocena decimal(10,2),
 	precioMayor decimal(10,2),
-	imagenProducto varchar(45),
 	existencia int,
 	codigoTipoProducto int,
 	codigoProveedor int,
@@ -388,14 +389,14 @@ CREATE PROCEDURE sp_crearProducto(
     IN p_precioUnitario DECIMAL(10,2),
     IN p_precioDocena DECIMAL(10,2),
     IN p_precioMayor DECIMAL(10,2),
-    IN p_imagenProducto VARCHAR(45),
+
     IN p_existencia INT,
     IN p_codigoTipoProducto INT,
     IN p_codigoProveedor INT
 )
 BEGIN
-    INSERT INTO Productos(codigoProducto, descripcionProducto, precioUnitario, precioDocena, precioMayor, imagenProducto, existencia, codigoTipoProducto, codigoProveedor)
-    VALUES(p_codigoProducto, p_descripcionProducto, p_precioUnitario, p_precioDocena, p_precioMayor, p_imagenProducto, p_existencia, p_codigoTipoProducto, p_codigoProveedor);
+    INSERT INTO Productos(codigoProducto, descripcionProducto, precioUnitario, precioDocena, precioMayor , existencia, codigoTipoProducto, codigoProveedor)
+    VALUES(p_codigoProducto, p_descripcionProducto, p_precioUnitario, p_precioDocena, p_precioMayor, p_existencia, p_codigoTipoProducto, p_codigoProveedor);
 END$$
 DELIMITER ;
 
@@ -415,7 +416,6 @@ CREATE PROCEDURE sp_actualizarProducto(
     IN p_nuevoPrecioUnitario DECIMAL(10,2),
     IN p_nuevoPrecioDocena DECIMAL(10,2),
     IN p_nuevoPrecioMayor DECIMAL(10,2),
-    IN p_nuevaImagenProducto VARCHAR(45),
     IN p_nuevaExistencia INT,
     IN p_nuevoCodigoTipoProducto INT,
     IN p_nuevoCodigoProveedor INT
@@ -426,7 +426,6 @@ BEGIN
         precioUnitario = p_nuevoPrecioUnitario,
         precioDocena = p_nuevoPrecioDocena,
         precioMayor = p_nuevoPrecioMayor,
-        imagenProducto = p_nuevaImagenProducto,
         existencia = p_nuevaExistencia,
         codigoTipoProducto = p_nuevoCodigoTipoProducto,
         codigoProveedor = p_nuevoCodigoProveedor
@@ -434,14 +433,15 @@ BEGIN
 END$$
 DELIMITER ;
 
+DELIMITER $$
 
 CREATE PROCEDURE sp_eliminarProducto(
-    IN codigoProducto VARCHAR(15)
+    IN codigoProductos VARCHAR(15)
 )
 BEGIN
     DELETE FROM Productos
-    WHERE codigoProducto = codigoProducto
-END$$
+    WHERE codigoProducto = codigoProductos;
+END $$
 
 DELIMITER ;
 
@@ -667,9 +667,9 @@ CALL sp_actualizarProveedor(1, '9876543210', 'Nuevo Nombre', 'Nuevos Apellidos',
 -- CALL sp_eliminarProveedor(2);
 
 
-CALL sp_crearProducto('ABC123', 'Producto', 10.99, 99.99, 199.99, 'imagen.jpg', 100, 1, 1);
+CALL sp_crearProducto('ABC123', 'Producto', 10.99, 99.99, 199.99, 100, 1, 2);
 CALL sp_listarProductos();
-CALL sp_actualizarProducto('ABC123', 'Nuevo', 20.99, 199.99, 299.99, 'nueva_imagen.jpg', 200, 1, 1);
+CALL sp_actualizarProducto('ABC123', 'Nuevo', 20.99, 199.99, 299.99, 200, 1, 2);
 -- CALL sp_eliminarProducto('ABC123');
 
 CALL sp_crearDetalleCompra(1, 10.99, 5, 'ABC123', 1234);

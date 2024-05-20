@@ -20,6 +20,7 @@ import org.durias.controller.TipoDeProductoControlador;
 import org.durias.controller.CargoEmpleadoControlador;
 import org.durias.controller.MenuClientesController;
 import org.durias.controller.MenuPrincipalControlador;
+import org.durias.controller.MenuProductoController;
 import org.durias.controller.MenuProveedoresControlador;
 import org.durias.controller.ProgramadorController;
 
@@ -124,5 +125,17 @@ public class Principal extends Application {
             e.printStackTrace();
         }
     }
+    
+     public void Producto(){
+        try{
+            MenuProductoController producto = (MenuProductoController)cambiarEscena("MenuProducto.fxml", 1175, 597);
+            producto.setEscenarioPrincipal(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    
 }
 

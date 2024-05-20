@@ -222,19 +222,19 @@ public class MenuProveedoresControlador implements Initializable {
     }
 
     public void guardar() {
-       
-        Proveedores registro = new Proveedores();
-        registro.setCodigoProveedor(Integer.parseInt(txtCodProv.getText()));
-        registro.setNITProveedor(txtNITProv.getText());
-        registro.setNombresProveedor(txtNombreProv.getText());
-        registro.setApellidosProveedor(txtApellidosProv.getText());
-        registro.setDireccionProveedor(txtDireccionProv.getText());
-        registro.setRazonSocial(txtRazonSocialProv.getText());
-        registro.setContactoPrincipal(txtContactoProv.getText());
-        registro.setPaginaWeb(txtPaginaProv.getText());
-        registro.setTelefonoProveedor(txtTelefonoProv.getText());
-        registro.setEmailProveedor(txtEmailProv.getText());
-         try {
+        try {
+            Proveedores registro = new Proveedores();
+            registro.setCodigoProveedor(Integer.parseInt(txtCodProv.getText()));
+            registro.setNITProveedor(txtNITProv.getText());
+            registro.setNombresProveedor(txtNombreProv.getText());
+            registro.setApellidosProveedor(txtApellidosProv.getText());
+            registro.setDireccionProveedor(txtDireccionProv.getText());
+            registro.setRazonSocial(txtRazonSocialProv.getText());
+            registro.setContactoPrincipal(txtContactoProv.getText());
+            registro.setPaginaWeb(txtPaginaProv.getText());
+            registro.setTelefonoProveedor(txtTelefonoProv.getText());
+            registro.setEmailProveedor(txtEmailProv.getText());
+
             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{CALL sp_crearProveedor(?,?,?,?,?,?,?,?,?,?)}");
             procedimiento.setInt(1, registro.getCodigoProveedor());
             procedimiento.setString(2, registro.getNITProveedor());
@@ -247,11 +247,20 @@ public class MenuProveedoresControlador implements Initializable {
             procedimiento.setString(9, registro.getTelefonoProveedor());
             procedimiento.setString(10, registro.getEmailProveedor());
             procedimiento.execute();
+
             listaProv.add(registro);
+        } catch (SQLException e) {
+            // Handle SQL exceptions appropriately
+            e.printStackTrace();
+        } catch (NumberFormatException e) {
+            // Handle parsing exceptions for numeric fields
+            e.printStackTrace();
         } catch (Exception e) {
+            // Handle other exceptions
             e.printStackTrace();
         }
     }
+
 
     public void eliminar() {
         switch (tipoDeOperador) {
@@ -367,7 +376,7 @@ public class MenuProveedoresControlador implements Initializable {
     }
 
     public void handleButtonAction(ActionEvent event) {
-        if(event.getSource() == btnReporte){
+        if(event.getSource() == btnRegresar){
             escenarioPrincipal.menuPrincipalView();
         }
     }

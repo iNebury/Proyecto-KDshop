@@ -102,7 +102,7 @@ public class TipoDeProductoControlador implements Initializable {
         try {
             Connection conexion = Conexion.getInstance().getConexion();
             if (conexion != null) {
-                try (PreparedStatement procedimiento = conexion.prepareCall("{CALL sp_mostrartiposproducto()}");
+                try (PreparedStatement procedimiento = conexion.prepareCall("{CALL sp_listarTipoProducto()}");
                         ResultSet resultado = procedimiento.executeQuery()) {
                     while (resultado.next()) {
                         lista.add(new TipoDeProducto(
@@ -153,7 +153,7 @@ public class TipoDeProductoControlador implements Initializable {
         TipoDeProducto reg = new TipoDeProducto();
         reg.setCodigoTipoProducto(Integer.parseInt(txtcodTP.getText()));
         reg.setDescripcionProducto(txtdesP.getText());
-        PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_agregartipoproducto(?, ?)}");
+        PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_crearTipoProducto(?, ?)}");
         procedimiento.setInt(1, reg.getCodigoTipoProducto());
         procedimiento.setString(2, reg.getDescripcionProducto());
         procedimiento.execute();
@@ -176,7 +176,7 @@ public class TipoDeProductoControlador implements Initializable {
                     int ans = JOptionPane.showConfirmDialog(null, "Confirma esta Accion", "Verificacion", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (ans == JOptionPane.YES_NO_OPTION) {
                         try {
-                            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{CALL sp_eliminartipoproducto(?)}");
+                            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{CALL sp_eliminarTipoProducto(?)}");
                             procedimiento.setInt(1, ((TipoDeProducto) tblTipoDeProducto.getSelectionModel().getSelectedItem()).getCodigoTipoProducto());
                             procedimiento.execute();
                             listaTipoDeProducto.remove(tblTipoDeProducto.getSelectionModel().getSelectedItem());
@@ -239,7 +239,7 @@ public class TipoDeProductoControlador implements Initializable {
         TipoDeProducto reg = new TipoDeProducto();
         reg.setCodigoTipoProducto(Integer.parseInt(txtcodTP.getText()));
         reg.setDescripcionProducto(txtdesP.getText());
-        PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{CALL sp_actualizartipoproducto(?,?)}");
+        PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{CALL sp_actualizarTipoProducto(?,?)}");
         procedimiento.setInt(1, reg.getCodigoTipoProducto());
         procedimiento.setString(2, reg.getDescripcionProducto());
         procedimiento.execute();

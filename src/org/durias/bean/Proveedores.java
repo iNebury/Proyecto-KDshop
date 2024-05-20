@@ -4,10 +4,7 @@
  */
 package org.durias.bean;
 
-/**
- *
- * @author mauco
- */
+
 public class Proveedores {
     private int codigoProveedor;
     private String NITProveedor;

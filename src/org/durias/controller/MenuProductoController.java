@@ -88,7 +88,6 @@ public class MenuProductoController implements Initializable {
         listaProveedor = FXCollections.observableArrayList();
         listaTipoDeProducto = FXCollections.observableArrayList();
 
-        // Ahora puedes llamar a los métodos que utilizan estas listas
         cargarDatos();
         cmbcodigoProveedor.setItems(getProveedores());
         cmbcodigoTipoProducto.setItems(getTipoDeProducto());

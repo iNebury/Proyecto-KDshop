@@ -32,11 +32,7 @@ import org.durias.bean.Proveedores;
 import org.durias.db.Conexion;
 import org.durias.system.Principal;
 
-/**
- * FXML Controller class
- *
- * @author mauco
- */
+
 public class MenuProveedoresControlador implements Initializable {
 
     @FXML

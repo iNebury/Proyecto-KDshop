@@ -236,6 +236,17 @@ BEGIN
 END$$
 DELIMITER ;
 
+DELIMITER $$
+CREATE PROCEDURE sp_buscarCompra(
+IN compraID int
+)
+BEGIN
+	SELECT * FROM Compras
+		WHERE numeroDocumento = compraID;
+END $$
+
+DELIMITER ;
+
 CALL sp_listarCompras();
 
 DELIMITER $$
@@ -278,12 +289,27 @@ BEGIN
     VALUES(p_codigoCargoEmpleado, p_nombreCargo, p_descripcionCargo);
 END$$
 
+DELIMITER ;
+
+DELIMITER $$
 CREATE PROCEDURE sp_listarCargoEmpleado()
 BEGIN
     SELECT * FROM CargoEmpleado;
 END$$
+DELIMITER ;
 
 CALL sp_listarCargoEmpleado();
+
+DELIMITER $$
+CREATE PROCEDURE sp_buscarCargoEmpleado(
+IN cargoID INT
+)
+BEGIN
+	SELECT * FROM cargoEmpleado
+    WHERE codigoCargoEmpleado = cargoID;
+END $$
+DELIMITER ;
+
 
 CREATE PROCEDURE sp_actualizarCargoEmpleado(
     IN p_codigoCargoEmpleado INT,
@@ -401,6 +427,15 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
+CREATE PROCEDURE sp_buscarProducto(IN codigoProducto1 varchar(15))
+begin 
+	select * from Productos
+    where codigoProducto = codigoProducto1;
+end $$
+
+DELIMITER ;
+
+DELIMITER $$
 CREATE PROCEDURE sp_listarProductos()
 BEGIN
     SELECT * FROM Productos;
@@ -460,12 +495,25 @@ BEGIN
     INSERT INTO DetalleCompra(codigoDetalleCompra, costoUnitario, cantidad, codigoProducto, numeroDocumento)
     VALUES(p_codigoDetalleCompra, p_costoUnitario, p_cantidad, p_codigoProducto, p_numeroDocumento);
 END$$
+DELIMITER ;
 
+DELIMITER $$
 CREATE PROCEDURE sp_listarDetallesCompra()
 BEGIN
     SELECT * FROM DetalleCompra;
 END$$
 
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE sp_buscarDetalleCompra(IN detalleCompra1 int)
+BEGIN
+SELECT * FROM detalleCompra
+WHERE codigoDetalleCompra = detalleCompra1;
+END $$
+DELIMITER ;
+
+DELIMITER $$
 CREATE PROCEDURE sp_actualizarDetalleCompra(
     IN p_codigoDetalleCompra INT,
     IN p_nuevoCostoUnitario DECIMAL(10,2),
@@ -481,6 +529,10 @@ BEGIN
         numeroDocumento = p_nuevoNumeroDocumento
     WHERE codigoDetalleCompra = p_codigoDetalleCompra;
 END$$
+
+DELIMITER ; 
+
+DELIMITER $$
 
 CREATE PROCEDURE sp_eliminarDetalleCompra(
     IN p_codigoDetalleCompra INT
@@ -649,16 +701,19 @@ CALL sp_actualizarCliente(1,'888029-8','Javier','Herrera','5ta Calle Z.2 Mixco',
 CALL sp_crearTipoProducto(1,"Proteínas");
 CALL sp_listarTipoProducto();
 CALL sp_actualizarTipoProducto(1, 'Proteina Sintetica');
+
 -- CALL sp_eliminarTipoProducto(1);
 
 CALL sp_crearCompras(1234, '2024-02-06', "ejemplo1", 0.00);
 CALL sp_listarCompras();
 CALL sp_actualizarCompra(1234, '2024-05-06', "ejemplo2", 0.00);
+CALL sp_buscarcompra();
 -- CALL sp_eliminarCompra(1234);
 
-CALL sp_crearCargoEmpleado(1234,"Gerente","administtrar tienda");
+CALL sp_crearCargoEmpleado(123,"Gerente","administtrar tienda");
 CALL sp_listarCargoEmpleado();
 CALL sp_actualizarCargoEmpleado(1234,"JEFE","Mandar");
+CALL sp_buscarCargoEmpleado(1234);
 -- CALL sp_eliminarCargoEmpleado(1234);
 
 CALL sp_crearProveedor(2, '1234567890', 'Proveedor Ejemplo', 'Apellidos del Proveedor', '123 Calle Principal, Ciudad', 'Empresa Ejemplo', 'Juan Pérez', 'www.proveedor.com','+502 12345678','email@.com');
@@ -670,11 +725,13 @@ CALL sp_actualizarProveedor(1, '9876543210', 'Nuevo Nombre', 'Nuevos Apellidos',
 CALL sp_crearProducto('ABC123', 'Producto', 10.99, 99.99, 199.99, 100, 1, 2);
 CALL sp_listarProductos();
 CALL sp_actualizarProducto('ABC123', 'Nuevo', 20.99, 199.99, 299.99, 200, 1, 2);
+CALL sp_buscarProducto('ABC123');
 -- CALL sp_eliminarProducto('ABC123');
 
 CALL sp_crearDetalleCompra(1, 10.99, 5, 'ABC123', 1234);
 CALL sp_listarDetallesCompra();
 CALL sp_actualizarDetalleCompra(1, 15.99, 7, 'ABC123', 1234);
+CALL sp_buscarDetalleCompra(1);
 -- CALL sp_eliminarDetalleCompra(1);
 
 CALL sp_crearEmpleado(1, 'Juan', 'Pérez', 2000.00, 'Dirección del empleado', 'Matutino', 1234);

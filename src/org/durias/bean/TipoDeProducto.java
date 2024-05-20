@@ -29,4 +29,10 @@ public class TipoDeProducto {
         this.descripcionProducto = descripcionProducto;
     }
 
+    @Override
+    public String toString() {
+        return getCodigoTipoProducto() + "  -  " + getDescripcionProducto();
+    }
+
+    
 }

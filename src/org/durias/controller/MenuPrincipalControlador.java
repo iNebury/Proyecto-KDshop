@@ -26,6 +26,10 @@ public class MenuPrincipalControlador implements Initializable {
     MenuItem btnProveedores;
     @FXML
     MenuItem btnProductos;
+    @FXML
+    MenuItem btnDetalleCompra;
+    @FXML
+    MenuItem btnEmpleados;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -46,15 +50,19 @@ public class MenuPrincipalControlador implements Initializable {
         } else if (event.getSource() == btnProgramador) {
             escenarioPrincipal.programadorView();
         } else if (event.getSource() == btnTipoDeProducto) {
-            escenarioPrincipal.tipoDeProductoView();
+            escenarioPrincipal.tipoDeProducto();
         } else if (event.getSource() == btnCompras) {
-            escenarioPrincipal.ComprasView();
+            escenarioPrincipal.Compras();
         } else if (event.getSource() == btnCargoEmpleado) {
             escenarioPrincipal.CargoEmpleados();
         }else if(event.getSource() == btnProveedores ){
-            escenarioPrincipal.ProveedoresView();
+            escenarioPrincipal.Proveedores();
         }else if(event.getSource() == btnProductos){
             escenarioPrincipal.Producto();
+        }else if(event.getSource() == btnDetalleCompra){
+            escenarioPrincipal.DetalleCompras();
+        }else if(event.getSource() == btnEmpleados){
+            escenarioPrincipal.Empleados();
         }
     }
 }

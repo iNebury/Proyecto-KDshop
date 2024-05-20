@@ -49,4 +49,11 @@ public class Compras {
         this.totalDocumento = totalDocumento;
     }
 
+    @Override
+    public String toString() {
+        return getNumeroDocumento() + " - " +getDescripcionCompra();
+    }
+    
+    
+
 }

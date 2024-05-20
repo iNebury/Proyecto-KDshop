@@ -4,12 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- * 
- *Aqui estoy estableciendo una conexion con la base de datos para poder importar 
- *las clases necesarias y trabajar con la base de datos
- * 
- */
 public class Conexion {
 
     private Connection conexion;
@@ -18,7 +12,7 @@ public class Conexion {
     public Conexion() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbKDShop?useSSL=false", "tareas", "abc123**");
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbKDShop?useSSL=false", "root", "admin");
 
         } catch (ClassNotFoundException e) {
             System.out.println("Error" + e.getMessage());

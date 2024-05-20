@@ -142,7 +142,7 @@ public class MenuClientesController implements Initializable {
         try {
             Connection conexion = Conexion.getInstance().getConexion();
             if (conexion != null) {
-                try (PreparedStatement procedimiento = conexion.prepareCall("{CALL sp_MostrarClientes()}");
+                try (PreparedStatement procedimiento = conexion.prepareCall("{CALL sp_listarClientes()}");
                         ResultSet resultado = procedimiento.executeQuery()) {
                     while (resultado.next()) {
                         lista.add(new Clientes(

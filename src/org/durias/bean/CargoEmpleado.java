@@ -1,6 +1,5 @@
 package org.durias.bean;
 
-//Esta clase sirve para gestional la informacion de los cargos y empleados 
 public class CargoEmpleado {
 
     private int codigoCargoEmpleado;

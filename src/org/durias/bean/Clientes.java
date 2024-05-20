@@ -1,6 +1,5 @@
 package org.durias.bean;
 
-// Hola 
 public class Clientes {
 
     private int codigoCliente;

@@ -19,7 +19,7 @@ create table Clientes(
 create table TipoProducto(
 	codigoTipoProducto int ,
     descripcionProducto varchar (45),
-    primary key PK_TipoProducto(codigoTipoProducto)
+    primary key PK_TipoProducto(codigoTipoProducto) 
 );
 
 create table Compras(
@@ -63,7 +63,7 @@ create table Productos(
 	codigoProveedor int,
 	primary key  PK_codigoProducto (codigoProducto),
 	foreign key (codigoTipoProducto) references TipoProducto(codigoTipoProducto),
-	foreign key (codigoProveedor) references Proveedores(codigoProveedor)
+	foreign key (codigoProveedor) references Proveedores(codigoProveedor) on delete cascade
 );
 
 CREATE TABLE DetalleCompra(
@@ -74,8 +74,8 @@ cantidad int,
 codigoProducto varchar(15),
 numeroDocumento int,
 PRIMARY KEY PK_codigoDetalleCompra (codigoDetalleCompra),
-FOREIGN KEY (codigoProducto) REFERENCES Productos(codigoProducto),
-FOREIGN KEY (numeroDocumento) REFERENCES Compras(numeroDocumento)
+FOREIGN KEY (codigoProducto) REFERENCES Productos(codigoProducto) on delete cascade,
+FOREIGN KEY (numeroDocumento) REFERENCES Compras(numeroDocumento) on delete cascade
     
 );
 
@@ -89,7 +89,7 @@ direccion varchar(150),
 turno varchar(15),
 codigoCargoEmpleado int,
 PRIMARY KEY PK_codigoEmpleado (codigoEmpleado),
-FOREIGN KEY (codigoCargoEmpleado) REFERENCES CargoEmpleado(codigoCargoEmpleado)
+FOREIGN KEY (codigoCargoEmpleado) REFERENCES CargoEmpleado(codigoCargoEmpleado) on delete cascade
 
 );
 
@@ -103,8 +103,8 @@ fechaFactura varchar(45),
 codigoCliente int,
 codigoEmpleado int,
 PRIMARY KEY PK_numeroDeFactura (numeroDeFactura),
-FOREIGN KEY (codigoCliente) REFERENCES Clientes(codigoCliente),
-FOREIGN KEY (codigoEmpleado) REFERENCES Empleados(codigoEmpleado)
+FOREIGN KEY (codigoCliente) REFERENCES Clientes(codigoCliente) on delete cascade,
+FOREIGN KEY (codigoEmpleado) REFERENCES Empleados(codigoEmpleado) on delete cascade
 
 );
 
@@ -117,282 +117,579 @@ cantidad int,
 numeroDeFactura int,
 codigoProducto varchar(15),
 PRIMARY KEY PK_codigoDetalleFactura (codigoDetalleFactura),
-FOREIGN KEY (numeroDeFactura) REFERENCES Factura(numeroDeFactura),
-FOREIGN KEY (codigoProducto) REFERENCES Productos(codigoProducto)
+FOREIGN KEY (numeroDeFactura) REFERENCES Factura(numeroDeFactura) on delete cascade,
+FOREIGN KEY (codigoProducto) REFERENCES Productos(codigoProducto) on delete cascade
 
 );
 
-delimiter $$
-create procedure sp_AgregarCliente(in codigoCliente int, in nitCliente varchar (45), in nombreCliente varchar(45), in apellidoCliente varchar(128) , in direccionCliente varchar(128), in telefonoCliente varchar(13),in correoCliente varchar(128))
-begin
-	insert into Clientes(codigoCliente,nitCliente,nombreCliente,apellidoCliente,direccionCliente,telefonoCliente,correoCliente)
-		values(codigoCliente,nitCliente,nombreCliente,apellidoCliente,direccionCliente,telefonoCliente,correoCliente);
-end$$
-delimiter ;
+use dbKDShop;
+DELIMITER $$
+CREATE PROCEDURE sp_crearCliente(in codigoCliente int, in nitCliente varchar(10), in nombreCliente varchar(50), in apellidoCliente varchar (50), in direccionCliente varchar(150), in telefonoCliente varchar(45), in correoCliente varchar(45))
+BEGIN
 
-CALL sp_AgregarCliente('5', '12345678', 'Juan', 'López', 'Colonia Centro', '1234567890', 'juan@example.com');
-CALL sp_AgregarCliente(20, '123123123', 'Pedro', 'García', 'Colonia Reformita', '555987654', 'pedro@example.com');
-CALL sp_AgregarCliente(30, '456456456', 'Ana', 'Martínez', 'Zona 10', '555456789', 'ana@example.com');
+INSERT INTO Clientes(codigoCliente,nitCliente,nombreCliente,apellidoCliente,direccionCliente,telefonoCliente,correoCliente)
+	VALUES(codigoCliente,nitCliente,nombreCliente,apellidoCliente,direccionCliente,telefonoCliente,correoCliente);
 
+END$$
+DELIMITER ;
 
-delimiter $$
-create procedure sp_MostrarClientes()
-begin
-	select * from Clientes;
-end$$
-delimiter ;
+DELIMITER $$
+CREATE PROCEDURE sp_listarClientes()
+BEGIN
 
-call sp_MostrarClientes();
+	SELECT * FROM Clientes; 
 
-delimiter $$
-create procedure sp_actualizarclientes(
-    in codigocliente int,
-    in nuevonombrecliente varchar(128),
-    in nuevoapellidocliente varchar(128),
-    in nuevadireccioncliente varchar(128),
-    in nuevotelefonocliente varchar(13),
-    in nuevocorreocliente varchar(128)
+END$$
+DELIMITER ;
+
+CALL sp_listarClientes();
+
+DELIMITER $$
+CREATE PROCEDURE sp_actualizarCliente(in codigoCliente int, in nitClienteActualizado varchar(10), in nombreClienteActualizado varchar(50), in apellidoClienteActualizado varchar (50), in direccionClienteActualizado varchar(150), in telefonoClienteActualizado varchar(45), in correoClienteActualizado varchar(45))
+BEGIN
+
+	UPDATE Clientes
+    SET nitCliente = nitClienteActualizado, nombreCliente = nombreClienteActualizado, apellidoCliente = apellidoClienteActualizado, direccionCliente = direccionClienteActualizado, telefonoCliente = telefonoClienteActualizado, correoCliente = correoClienteActualizado
+    WHERE codigoCliente = codigoCliente;
+
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE sp_eliminarCliente(in codigoCliente int)
+BEGIN
+
+	DELETE FROM clientes
+    WHERE codigoCliente = codigoCliente;
+
+END$$
+DELIMITER ;
+
+CALL sp_eliminarCliente(1);
+
+-- CRUD DE TipoProducto
+
+DELIMITER $$
+CREATE PROCEDURE sp_crearTipoProducto(in codigoTipoProducto int, in descripcion varchar(15))
+BEGIN
+
+	INSERT INTO TipoProducto(codigoTipoProducto,descripcionProducto)
+		VALUES(codigoTipoProducto,descripcion);
+
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE sp_listarTipoProducto()
+BEGIN
+
+	SELECT * FROM TipoProducto;
+
+END$$
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE PROCEDURE sp_actualizarTipoProducto(
+    IN p_codigoTipoProducto INT,
+    IN p_nuevaDescripcion VARCHAR(45)
 )
-begin
-    update clientes
-    set nombrecliente = nuevonombrecliente,
-        apellidocliente = nuevoapellidocliente,
-        direccioncliente = nuevadireccioncliente,
-        telefonocliente = nuevotelefonocliente,
-        correocliente = nuevocorreocliente
-    where codigocliente = codigocliente;
-end$$
-delimiter ;
+BEGIN
+    UPDATE TipoProducto
+    SET descripcionProducto = p_nuevaDescripcion
+    WHERE codigoTipoProducto = p_codigoTipoProducto;
+END$$
 
+DELIMITER ;
 
-call sp_actualizarClientes('5', 'Pedro', 'López', 'Colonia Centro', '1234567890', 'juan@example.com');
+DELIMITER $$
+CREATE PROCEDURE sp_eliminarTipoProducto(in codigoTipoProducto int)
+BEGIN
 
-delimiter $$
-create procedure sp_EliminarClientes(in codigoCliente int)
-begin
-	delete from Clientes
-    where codigoCliente = codigoCliente;
-end$$
-delimiter ;
+	DELETE FROM TipoProducto
+    WHERE codigoTipoProducto = codigoTipoProducto;
 
-call sp_EliminarClientes(30);
+END$$
+DELIMITER ;
 
-delimiter $$
-create procedure sp_agregartipoproducto(
-    in codigotipoproducto int,
-    in descripcionproducto varchar(45)
+CALL sp_eliminarTipoProducto(1);
+
+DELIMITER $$
+
+CREATE PROCEDURE sp_crearCompras(
+    IN numeroDocumento INT,
+    IN fechaDocumento DATE,
+    IN descripcion VARCHAR(60),
+    IN totalDocumento DECIMAL(10,2)
 )
-begin
-    insert into tipoproducto (codigotipoproducto, descripcionproducto) values (codigotipoproducto, descripcionproducto);
-end$$
-delimiter ;
+BEGIN
+    INSERT INTO Compras(numeroDocumento, fechaDocumento, descripcionCompra, totalDocumento)
+    VALUES(numeroDocumento, fechaDocumento, descripcion, totalDocumento);
+END$$
+DELIMITER ;
 
-call sp_agregartipoproducto(1, 'Frutas');
+DELIMITER $$
+CREATE PROCEDURE sp_listarCompras()
+BEGIN
+    SELECT * FROM Compras;
+END$$
+DELIMITER ;
 
+CALL sp_listarCompras();
 
-delimiter $$
-create procedure sp_mostrartiposproducto()
-begin
-    select * from tipoproducto;
-end$$
-delimiter ;
-
-call sp_mostrartiposproducto();
-
-delimiter $$
-create procedure sp_actualizartipoproducto(
-    in codigotipoproducto int,
-    in _descripcion varchar(45)
+DELIMITER $$
+CREATE PROCEDURE sp_actualizarCompra(
+    IN numeroDocumento INT,
+    IN nuevaFechaDocumento DATE,
+    IN nuevaDescripcion VARCHAR(60),
+    IN nuevoTotalDocumento DECIMAL(10,2)
 )
-begin
-    update TipoProducto
-    set descripcionProducto = _descripcion
-    where codigoTipoProducto = codigotipoproducto;
-end$$
-delimiter ;
+BEGIN
+    UPDATE Compras
+    SET fechaDocumento = nuevaFechaDocumento,
+        descripcionCompra = nuevaDescripcion,
+        totalDocumento = nuevoTotalDocumento
+    WHERE numeroDocumento = numeroDocumento;
+END$$
+DELIMITER ;
 
-
-delimiter $$
-create procedure sp_eliminartipoproducto(
-    in codigotipoproducto int
+DELIMITER $$
+CREATE PROCEDURE sp_eliminarCompra(
+    IN numeroDocumento INT
 )
-begin
-    delete from tipoproducto where codigotipoproducto = codigotipoproducto;
-end$$
-delimiter ;
+BEGIN
+    DELETE FROM Compras
+    WHERE numeroDocumento = numeroDocumento;
+END$$
+DELIMITER ;
 
-call sp_eliminartipoproducto(1);
+CALL sp_eliminarCompra(1234);
 
-delimiter $$
-create procedure sp_agregarcompra(
-    in numerodocumento int,
-    in fechadocumento date,
-    in descripcioncompra varchar(60),
-    in totaldocumento decimal(20,2)
+DELIMITER $$
+
+CREATE PROCEDURE sp_crearCargoEmpleado(
+    IN p_codigoCargoEmpleado INT,
+    IN p_nombreCargo VARCHAR(45),
+    IN p_descripcionCargo VARCHAR(45)
 )
-begin
-    insert into compras (numerodocumento, fechadocumento, descripcioncompra, totaldocumento) values (numerodocumento, fechadocumento, descripcioncompra, totaldocumento);
-end$$
-delimiter ;
+BEGIN
+    INSERT INTO CargoEmpleado(codigoCargoEmpleado, nombreCargo, descripcionCargo)
+    VALUES(p_codigoCargoEmpleado, p_nombreCargo, p_descripcionCargo);
+END$$
 
-call sp_agregarcompra(1, '2024-05-10', 'Compra de frutas', 150.50);
+CREATE PROCEDURE sp_listarCargoEmpleado()
+BEGIN
+    SELECT * FROM CargoEmpleado;
+END$$
 
-delimiter $$
-create procedure sp_mostrarcompras()
-begin
-    select * from compras;
-end$$
-delimiter ;
+CALL sp_listarCargoEmpleado();
 
-call sp_mostrarcompras();
-
-delimiter $$
-create procedure sp_actualizarcompra(
-    in numerodocumento int,
-    in fechadocumento date,
-    in descripcioncompra varchar(60),
-    in totaldocumento decimal(20,2)
+CREATE PROCEDURE sp_actualizarCargoEmpleado(
+    IN p_codigoCargoEmpleado INT,
+    IN p_nuevoNombreCargo VARCHAR(45),
+    IN p_nuevaDescripcionCargo VARCHAR(45)
 )
-begin
-    update Compras
-    set fechaDocumento = fechadocumento,
-        descripcionCompra = descripcioncompra,
-        totalDocumento = totaldocumento
-    where numeroDocumento = numerodocumento;
-end$$
-delimiter ;
+BEGIN
+    UPDATE CargoEmpleado
+    SET nombreCargo = p_nuevoNombreCargo,
+        descripcionCargo = p_nuevaDescripcionCargo
+    WHERE codigoCargoEmpleado = p_codigoCargoEmpleado;
+END$$
 
-
-delimiter $$
-create procedure sp_eliminarcompra(
-    in numerodocumento int
+CREATE PROCEDURE sp_eliminarCargoEmpleado(
+    IN p_codigoCargoEmpleado INT
 )
-begin
-    delete from compras where numerodocumento = numerodocumento;
-end$$
-delimiter ;
+BEGIN
+    DELETE FROM CargoEmpleado
+    WHERE codigoCargoEmpleado = p_codigoCargoEmpleado;
+END$$
+DELIMITER ;
 
-call sp_eliminarcompra(1);
+CALL sp_eliminarCargoEmpleado(1234);
 
-delimiter $$
-create procedure sp_agregarproveedor(
-    in codigoproveedor int,
-    in nitproveedor varchar(13),
-    in nombresproveedor varchar(60),
-    in apellidosproveedor varchar(60),
-    in direccionproveedor varchar(150),
-    in razonsocial varchar(60),
-    in contactoprincipal varchar(100),
-    in paginaweb varchar(50),
-    in telefonoproveedor varchar(13),
-    in emailproveedor varchar(50)
+DELIMITER $$
+
+CREATE PROCEDURE sp_crearProveedor(
+    IN p_codigoProveedor INT,
+    IN p_nitProveedor VARCHAR(10),
+    IN p_nombreProveedor VARCHAR(60),
+    IN p_apellidosProveedor VARCHAR(60),
+    IN p_direccionProveedor VARCHAR(150),
+    IN p_razonSocial VARCHAR(60),
+    IN p_contactoPrincipal VARCHAR(100),
+    IN p_paginaWeb VARCHAR(50),
+    IN p_telefonoProveedor VARCHAR(13),
+    IN p_emailProveedor VARCHAR(50)
 )
-begin
-    insert into proveedores (codigoproveedor, nitproveedor, nombresproveedor, apellidosproveedor, direccionproveedor, razonsocial, contactoprincipal, paginaweb, telefonoproveedor, emailproveedor) values (codigoproveedor, nitproveedor, nombresproveedor, apellidosproveedor, direccionproveedor, razonsocial, contactoprincipal, paginaweb, telefonoproveedor, emailproveedor);
-end$$
-delimiter ;
+BEGIN
+    INSERT INTO Proveedores(codigoProveedor, nitProveedor, nombresProveedor, apellidosProveedor, direccionProveedor, razonSocial, contactoPrincipal, paginaWeb, telefonoProveedor, emailProveedor)
+    VALUES(p_codigoProveedor, p_nitProveedor, p_nombreProveedor, p_apellidosProveedor, p_direccionProveedor, p_razonSocial, p_contactoPrincipal, p_paginaWeb,p_telefonoProveedor,p_emailProveedor);
+END$$
+DELIMITER ;
 
-call sp_agregarproveedor(1, '987654321', 'Distribuidora ABC', 'S.A.', 'Avenida Principal', 'Distribuidora ABC S.A.', 'Juan Pérez', 'www.distribuidoraabc.com', '555-123456', 'info@distribuidoraabc.com');
+DELIMITER $$
+CREATE PROCEDURE sp_listarProveedores()
+BEGIN
+    SELECT * FROM Proveedores;
+END$$
+DELIMITER ;
 
-delimiter $$
-create procedure sp_mostrarproveedores()
-begin
-    select * from proveedores;
-end$$
-delimiter ;
+CALL sp_listarProveedores();
 
-delimiter $$
-create procedure sp_actualizarproveedor(
-    in codigoproveedor int,
-    in _nit varchar(13),
-    in _nombres varchar(60),
-    in _apellidos varchar(60),
-    in _direccion varchar(150),
-    in _razonsocial varchar(60),
-    in _contactoprincipal varchar(100),
-    in _paginaweb varchar(50),
-    in _telefono varchar(13),
-    in _email varchar(50)
+DELIMITER $$
+
+CREATE PROCEDURE sp_actualizarProveedor(
+    IN p_codigoProveedor INT,
+    IN p_nitProveedor VARCHAR(10),
+    IN p_nombreProveedor VARCHAR(60),
+    IN p_apellidosProveedor VARCHAR(60),
+    IN p_direccionProveedor VARCHAR(150),
+    IN p_razonSocial VARCHAR(60),
+    IN p_contactoPrincipal VARCHAR(100),
+    IN p_paginaWeb VARCHAR(50),
+    IN p_telefonoProveedor VARCHAR(13),
+    IN p_emailProveedor VARCHAR(50)
 )
-begin
-    update proveedores
-    set NITProveedor = _nit,
-        nombresProveedor = _nombres,
-        apellidosProveedor = _apellidos,
-        direccionProveedor = _direccion,
-        razonSocial = _razonsocial,
-        contactoPrincipal = _contactoprincipal,
-        paginaWeb = _paginaweb,
-        telefonoProveedor = _telefono,
-        emailProveedor = _email
-    where codigoProveedor = codigoproveedor;
-end$$
-delimiter ;
+BEGIN
+    UPDATE Proveedores
+    SET nitProveedor = p_nitProveedor,
+        nombresProveedor = p_nombreProveedor,
+        apellidosProveedor = p_apellidosProveedor,
+        direccionProveedor = p_direccionProveedor,
+        razonSocial = p_razonSocial,
+        contactoPrincipal = p_contactoPrincipal,
+        paginaWeb = p_paginaWeb,
+        telefonoProveedor = p_telefonoProveedor,
+        emailProveedor = p_emailProveedor
+        
+    WHERE codigoProveedor = p_codigoProveedor;
+END$$
+DELIMITER ;
 
-
-call sp_mostrarproveedores();
-
-delimiter $$
-create procedure sp_eliminarproveedor(
-    in codigoproveedor int
+DELIMITER $$
+CREATE PROCEDURE sp_eliminarProveedor(
+    IN p_codigoProveedor INT
 )
-begin
-    delete from proveedores where codigoproveedor = codigoproveedor;
-end$$
-delimiter ;
+BEGIN
+    DELETE FROM Proveedores
+    WHERE codigoProveedor = p_codigoProveedor;
+END$$
 
-call sp_eliminarproveedor(1);
+DELIMITER ;
 
 
-delimiter $$
-create procedure sp_agregarcargoempleado(
-    in codigo int,
-    in nombre varchar(45),
-    in descripcion varchar(82)
+-- CRUD de Productos
+
+DELIMITER $$
+
+CREATE PROCEDURE sp_crearProducto(
+    IN p_codigoProducto VARCHAR(15),
+    IN p_descripcionProducto VARCHAR(15),
+    IN p_precioUnitario DECIMAL(10,2),
+    IN p_precioDocena DECIMAL(10,2),
+    IN p_precioMayor DECIMAL(10,2),
+    IN p_imagenProducto VARCHAR(45),
+    IN p_existencia INT,
+    IN p_codigoTipoProducto INT,
+    IN p_codigoProveedor INT
 )
-begin
-    insert into cargoempleado (codigocargoempleado, nombrecargo, descripcioncargo) 
-		values (codigo, nombre, descripcion);
-end$$
-delimiter ;
+BEGIN
+    INSERT INTO Productos(codigoProducto, descripcionProducto, precioUnitario, precioDocena, precioMayor, imagenProducto, existencia, codigoTipoProducto, codigoProveedor)
+    VALUES(p_codigoProducto, p_descripcionProducto, p_precioUnitario, p_precioDocena, p_precioMayor, p_imagenProducto, p_existencia, p_codigoTipoProducto, p_codigoProveedor);
+END$$
+DELIMITER ;
 
-call sp_agregarcargoempleado(1,"administrado","mandar");
+DELIMITER $$
+CREATE PROCEDURE sp_listarProductos()
+BEGIN
+    SELECT * FROM Productos;
+END$$
+DELIMITER ;
 
+CALL sp_listarProductos();
 
-delimiter $$
-create procedure sp_mostrarcargoempleados()
-begin
-    select * from cargoempleado;
-end$$
-delimiter ;
-
-call sp_mostrarcargoempleados();
-
-delimiter $$
-create procedure sp_actualizarcargoempleado(
-    in codigo int,
-    in nombre varchar(45),
-    in descripcion varchar(82)
+DELIMITER $$
+CREATE PROCEDURE sp_actualizarProducto(
+    IN p_codigoProducto VARCHAR(15),
+    IN p_nuevaDescripcionProducto VARCHAR(15),
+    IN p_nuevoPrecioUnitario DECIMAL(10,2),
+    IN p_nuevoPrecioDocena DECIMAL(10,2),
+    IN p_nuevoPrecioMayor DECIMAL(10,2),
+    IN p_nuevaImagenProducto VARCHAR(45),
+    IN p_nuevaExistencia INT,
+    IN p_nuevoCodigoTipoProducto INT,
+    IN p_nuevoCodigoProveedor INT
 )
-begin
-    update cargoempleado
-    set nombrecargo = nombre, descripcioncargo = descripcion
-    where codigocargoempleado = codigo;
-end$$
-delimiter ;
+BEGIN
+    UPDATE Productos
+    SET descripcionProducto = p_nuevaDescripcionProducto,
+        precioUnitario = p_nuevoPrecioUnitario,
+        precioDocena = p_nuevoPrecioDocena,
+        precioMayor = p_nuevoPrecioMayor,
+        imagenProducto = p_nuevaImagenProducto,
+        existencia = p_nuevaExistencia,
+        codigoTipoProducto = p_nuevoCodigoTipoProducto,
+        codigoProveedor = p_nuevoCodigoProveedor
+    WHERE codigoProducto = p_codigoProducto;
+END$$
+DELIMITER ;
 
-call sp_actualizarcargoempleado(1,"jefe","dueño");
 
-delimiter $$
-create procedure sp_eliminarcargoempleado(
-    in codigo int
+CREATE PROCEDURE sp_eliminarProducto(
+    IN codigoProducto VARCHAR(15)
 )
-begin
-    delete from cargoempleado 
-    where codigocargoempleado = codigo;
-end$$
-delimiter ;
+BEGIN
+    DELETE FROM Productos
+    WHERE codigoProducto = codigoProducto
+END$$
 
-call sp_eliminarcargoempleado(1);
+DELIMITER ;
 
-    
+
+-- CRUD de DetalleCompra 
+DELIMITER $$
+
+CREATE PROCEDURE sp_crearDetalleCompra(
+    IN p_codigoDetalleCompra INT,
+    IN p_costoUnitario DECIMAL(10,2),
+    IN p_cantidad INT,
+    IN p_codigoProducto VARCHAR(15),
+    IN p_numeroDocumento INT
+)
+BEGIN
+    INSERT INTO DetalleCompra(codigoDetalleCompra, costoUnitario, cantidad, codigoProducto, numeroDocumento)
+    VALUES(p_codigoDetalleCompra, p_costoUnitario, p_cantidad, p_codigoProducto, p_numeroDocumento);
+END$$
+
+CREATE PROCEDURE sp_listarDetallesCompra()
+BEGIN
+    SELECT * FROM DetalleCompra;
+END$$
+
+CREATE PROCEDURE sp_actualizarDetalleCompra(
+    IN p_codigoDetalleCompra INT,
+    IN p_nuevoCostoUnitario DECIMAL(10,2),
+    IN p_nuevaCantidad INT,
+    IN p_nuevoCodigoProducto VARCHAR(15),
+    IN p_nuevoNumeroDocumento INT
+)
+BEGIN
+    UPDATE DetalleCompra
+    SET costoUnitario = p_nuevoCostoUnitario,
+        cantidad = p_nuevaCantidad,
+        codigoProducto = p_nuevoCodigoProducto,
+        numeroDocumento = p_nuevoNumeroDocumento
+    WHERE codigoDetalleCompra = p_codigoDetalleCompra;
+END$$
+
+CREATE PROCEDURE sp_eliminarDetalleCompra(
+    IN p_codigoDetalleCompra INT
+)
+BEGIN
+    DELETE FROM DetalleCompra
+    WHERE codigoDetalleCompra = p_codigoDetalleCompra;
+END$$
+
+DELIMITER ;
+
+-- CRUD de Empleados
+
+DELIMITER $$
+
+CREATE PROCEDURE sp_crearEmpleado(
+    IN p_codigoEmpleado INT,
+    IN p_nombresEmpleado VARCHAR(50),
+    IN p_apellidosEmpleado VARCHAR(50),
+    IN p_sueldo DECIMAL(10,2),
+    IN p_direccion VARCHAR(150),
+    IN p_turno VARCHAR(15),
+    IN p_codigoCargoEmpleado INT
+)
+BEGIN
+    INSERT INTO Empleados(codigoEmpleado, nombresEmpleado, apellidosEmpleado, sueldo, direccion, turno, codigoCargoEmpleado)
+    VALUES(p_codigoEmpleado, p_nombresEmpleado, p_apellidosEmpleado, p_sueldo, p_direccion, p_turno, p_codigoCargoEmpleado);
+END$$
+
+CREATE PROCEDURE sp_listarEmpleados()
+BEGIN
+    SELECT * FROM Empleados;
+END$$
+
+CREATE PROCEDURE sp_actualizarEmpleado(
+    IN p_codigoEmpleado INT,
+    IN p_nuevosNombresEmpleado VARCHAR(50),
+    IN p_nuevosApellidosEmpleado VARCHAR(50),
+    IN p_nuevoSueldo DECIMAL(10,2),
+    IN p_nuevaDireccion VARCHAR(150),
+    IN p_nuevoTurno VARCHAR(15),
+    IN p_nuevoCodigoCargoEmpleado INT
+)
+BEGIN
+    UPDATE Empleados
+    SET nombresEmpleado = p_nuevosNombresEmpleado,
+        apellidosEmpleado = p_nuevosApellidosEmpleado,
+        sueldo = p_nuevoSueldo,
+        direccion = p_nuevaDireccion,
+        turno = p_nuevoTurno,
+        codigoCargoEmpleado = p_nuevoCodigoCargoEmpleado
+    WHERE codigoEmpleado = p_codigoEmpleado;
+END$$
+
+CREATE PROCEDURE sp_eliminarEmpleado(
+    IN p_codigoEmpleado INT
+)
+BEGIN
+    DELETE FROM Empleados
+    WHERE codigoEmpleado = p_codigoEmpleado;
+END$$
+
+DELIMITER ;
+
+-- CRUD de Factura
+DELIMITER $$
+
+CREATE PROCEDURE sp_crearFactura(
+    IN p_numeroDeFactura INT,
+    IN p_estado VARCHAR(50),
+    IN p_totalFactura DECIMAL(10,2),
+    IN p_fechaFactura VARCHAR(45),
+    IN p_codigoCliente INT,
+    IN p_codigoEmpleado INT
+)
+BEGIN
+    INSERT INTO Factura(numeroDeFactura, estado, totalFactura, fechaFactura, codigoCliente, codigoEmpleado)
+    VALUES(p_numeroDeFactura, p_estado, p_totalFactura, p_fechaFactura, p_codigoCliente, p_codigoEmpleado);
+END$$
+
+CREATE PROCEDURE sp_listarFacturas()
+BEGIN
+    SELECT * FROM Factura;
+END$$
+
+CREATE PROCEDURE sp_actualizarFactura(
+    IN p_numeroDeFactura INT,
+    IN p_nuevoEstado VARCHAR(50),
+    IN p_nuevoTotalFactura DECIMAL(10,2),
+    IN p_nuevaFechaFactura VARCHAR(45),
+    IN p_nuevoCodigoCliente INT,
+    IN p_nuevoCodigoEmpleado INT
+)
+BEGIN
+    UPDATE Factura
+    SET estado = p_nuevoEstado,
+        totalFactura = p_nuevoTotalFactura,
+        fechaFactura = p_nuevaFechaFactura,
+        codigoCliente = p_nuevoCodigoCliente,
+        codigoEmpleado = p_nuevoCodigoEmpleado
+    WHERE numeroDeFactura = p_numeroDeFactura;
+END$$
+
+CREATE PROCEDURE sp_eliminarFactura(
+    IN p_numeroDeFactura INT
+)
+BEGIN
+    DELETE FROM Factura
+    WHERE numeroDeFactura = p_numeroDeFactura;
+END$$
+
+DELIMITER ;
+
+-- CRUD de DetalleFactura 
+DELIMITER $$
+
+CREATE PROCEDURE sp_crearDetalleFactura(
+    IN p_codigoDetalleFactura INT,
+    IN p_precioUnitario DECIMAL(10,2),
+    IN p_cantidad INT,
+    IN p_numeroDeFactura INT,
+    IN p_codigoProducto VARCHAR(15)
+)
+BEGIN
+    INSERT INTO DetalleFactura(codigoDetalleFactura, precioUnitario, cantidad, numeroDeFactura, codigoProducto)
+    VALUES(p_codigoDetalleFactura, p_precioUnitario, p_cantidad, p_numeroDeFactura, p_codigoProducto);
+END$$
+
+CREATE PROCEDURE sp_listarDetallesFactura()
+BEGIN
+    SELECT * FROM DetalleFactura;
+END$$
+
+CREATE PROCEDURE sp_actualizarDetalleFactura(
+    IN p_codigoDetalleFactura INT,
+    IN p_nuevoPrecioUnitario DECIMAL(10,2),
+    IN p_nuevaCantidad INT,
+    IN p_nuevoNumeroDeFactura INT,
+    IN p_nuevoCodigoProducto VARCHAR(15)
+)
+BEGIN
+    UPDATE DetalleFactura
+    SET precioUnitario = p_nuevoPrecioUnitario,
+        cantidad = p_nuevaCantidad,
+        numeroDeFactura = p_nuevoNumeroDeFactura,
+        codigoProducto = p_nuevoCodigoProducto
+    WHERE codigoDetalleFactura = p_codigoDetalleFactura;
+END$$
+
+CREATE PROCEDURE sp_eliminarDetalleFactura(
+    IN p_codigoDetalleFactura INT
+)
+BEGIN
+    DELETE FROM DetalleFactura
+    WHERE codigoDetalleFactura = p_codigoDetalleFactura;
+END$$
+
+DELIMITER ;
+
+
+CALL sp_crearCliente(1,'888029-8','Javier','Herrera','5ta Calle Z.2 Mixco','+502 55885335','javierherrera5513@gmail.com');
+CALL sp_listarClientes();
+CALL sp_actualizarCliente(1,'888029-8','Javier','Herrera','5ta Calle Z.2 Mixco','+502 55885335','jherrera-2020459@kinal.edu.gt');
+-- CALL sp_eliminarCliente(1);
+
+CALL sp_crearTipoProducto(1,"Proteínas");
+CALL sp_listarTipoProducto();
+CALL sp_actualizarTipoProducto(1, 'Proteina Sintetica');
+-- CALL sp_eliminarTipoProducto(1);
+
+CALL sp_crearCompras(1234, '2024-02-06', "ejemplo1", 0.00);
+CALL sp_listarCompras();
+CALL sp_actualizarCompra(1234, '2024-05-06', "ejemplo2", 0.00);
+-- CALL sp_eliminarCompra(1234);
+
+CALL sp_crearCargoEmpleado(1234,"Gerente","administtrar tienda");
+CALL sp_listarCargoEmpleado();
+CALL sp_actualizarCargoEmpleado(1234,"JEFE","Mandar");
+-- CALL sp_eliminarCargoEmpleado(1234);
+
+CALL sp_crearProveedor(2, '1234567890', 'Proveedor Ejemplo', 'Apellidos del Proveedor', '123 Calle Principal, Ciudad', 'Empresa Ejemplo', 'Juan Pérez', 'www.proveedor.com','+502 12345678','email@.com');
+CALL sp_listarProveedores();
+CALL sp_actualizarProveedor(1, '9876543210', 'Nuevo Nombre', 'Nuevos Apellidos', 'Nueva Dirección', 'Nueva Razón Social', 'Nuevo Contacto Principal', 'www.nuevaweb.com','+503 32165498','correo@gmail.com');
+-- CALL sp_eliminarProveedor(2);
+
+
+CALL sp_crearProducto('ABC123', 'Producto', 10.99, 99.99, 199.99, 'imagen.jpg', 100, 1, 1);
+CALL sp_listarProductos();
+CALL sp_actualizarProducto('ABC123', 'Nuevo', 20.99, 199.99, 299.99, 'nueva_imagen.jpg', 200, 1, 1);
+-- CALL sp_eliminarProducto('ABC123');
+
+CALL sp_crearDetalleCompra(1, 10.99, 5, 'ABC123', 1234);
+CALL sp_listarDetallesCompra();
+CALL sp_actualizarDetalleCompra(1, 15.99, 7, 'ABC123', 1234);
+-- CALL sp_eliminarDetalleCompra(1);
+
+CALL sp_crearEmpleado(1, 'Juan', 'Pérez', 2000.00, 'Dirección del empleado', 'Matutino', 1234);
+CALL sp_listarEmpleados();
+CALL sp_actualizarEmpleado(1, 'Juan', 'López', 2200.00, 'Nueva Dirección del empleado', 'Vespertino', 1234);
+-- CALL sp_eliminarEmpleado(1);
+
+CALL sp_crearFactura(1, 'Pagado', 1000.00, '2024-05-06', 1, 1);
+CALL sp_listarFacturas();
+CALL sp_actualizarFactura(1, 'Pendiente', 1200.00, '2024-05-07', 1, 1);
+-- CALL sp_eliminarFactura(1);
+
+CALL sp_crearDetalleFactura(1, 10.99, 5, 1, 'ABC123');
+CALL sp_listarDetallesFactura();
+CALL sp_actualizarDetalleFactura(1, 15.99, 7, 1, 'ABC123');
+-- CALL sp_eliminarDetalleFactura(1);
+
+set global time_zone= '-6:00';

@@ -20,6 +20,7 @@ import org.durias.controller.TipoDeProductoControlador;
 import org.durias.controller.CargoEmpleadoControlador;
 import org.durias.controller.MenuClientesController;
 import org.durias.controller.MenuPrincipalControlador;
+import org.durias.controller.MenuProveedoresControlador;
 import org.durias.controller.ProgramadorController;
 
 
@@ -111,6 +112,15 @@ public class Principal extends Application {
             cargos.setEscenarioPrincipal(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    public void ProveedoresView(){
+        try{
+        MenuProveedoresControlador proveedores = (MenuProveedoresControlador)cambiarEscena("MenuProveedores.fxml", 1175, 597);
+        proveedores.setEscenarioPrincipal(this);
+        }catch(Exception e){
             e.printStackTrace();
         }
     }

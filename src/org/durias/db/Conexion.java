@@ -4,6 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * 
+ *Aqui estoy estableciendo una conexion con la base de datos para poder importar 
+ *las clases necesarias y trabajar con la base de datos
+ * 
+ */
 public class Conexion {
 
     private Connection conexion;

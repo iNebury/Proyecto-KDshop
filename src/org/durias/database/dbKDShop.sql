@@ -693,7 +693,7 @@ END$$
 DELIMITER ;
 
 
-CALL sp_crearCliente(1,'888029-8','Javier','Herrera','5ta Calle Z.2 Mixco','+502 55885335','javierherrera5513@gmail.com');
+CALL sp_crearCliente(1,'888029-8','Diego','Nebury','5ta Calle Z.2 Mixco','+502 4323563','neburydesu@gmail.com');
 CALL sp_listarClientes();
 CALL sp_actualizarCliente(1,'888029-8','Javier','Herrera','5ta Calle Z.2 Mixco','+502 55885335','jherrera-2020459@kinal.edu.gt');
 -- CALL sp_eliminarCliente(1);
@@ -750,3 +750,6 @@ CALL sp_actualizarDetalleFactura(1, 15.99, 7, 1, 'ABC123');
 -- CALL sp_eliminarDetalleFactura(1);
 
 set global time_zone= '-6:00';
+
+-- --------------------------------------------------------------------------------
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'abc123**';

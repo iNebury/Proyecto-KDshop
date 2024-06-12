@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,6 +32,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javax.swing.JOptionPane;
 import org.durias.bean.Proveedores;
 import org.durias.db.Conexion;
+import org.durias.report.GenerarReportes;
 import org.durias.system.Principal;
 
 
@@ -322,6 +325,30 @@ public class MenuProveedoresControlador implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public void reportes() {
+        switch (tipoDeOperador) {
+            case NULL:
+                imprimirReporte();
+                break;
+            case ACTUALIZAR:
+                desactivarControles();
+                limpiarControles();
+                btnEditar.setText("Editar");
+                btnReporte.setText("Reportes");
+                btnAgregar.setDisable(false);
+                btnEliminar.setDisable(false);
+                tipoDeOperador = MenuProveedoresControlador.operador.NULL;
+                cargarDatos();
+                break;
+        }
+    }
+
+    public void imprimirReporte(){
+        Map parametros = new HashMap();
+        parametros.put("codigoProveedor", null);
+        GenerarReportes.mostrarReportes("reportProveedores.jasper", "Reporte de proveedor", parametros);
     }
     
     public void desactivarControles() {

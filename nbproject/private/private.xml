@@ -2,27 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/diego/OneDrive/Desktop/proyect/Proyecto-KDshop/Proyecto-KDshop/src/org/durias/bean/Empleado.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Desktop/proyect/Proyecto-KDshop/Proyecto-KDshop/src/org/durias/controller/MenuDetalleCompraControlador.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Desktop/proyect/Proyecto-KDshop/Proyecto-KDshop/src/org/durias/bean/Proveedores.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Desktop/proyect/Proyecto-KDshop/Proyecto-KDshop/src/org/durias/bean/TipoDeProducto.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Desktop/proyect/Proyecto-KDshop/Proyecto-KDshop/src/org/durias/bean/CargoEmpleado.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Desktop/proyect/Proyecto-KDshop/Proyecto-KDshop/src/org/durias/bean/Producto.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Desktop/proyect/Proyecto-KDshop/Proyecto-KDshop/src/org/durias/controller/CargoEmpleadoControlador.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Desktop/proyect/Proyecto-KDshop/Proyecto-KDshop/src/org/durias/controller/MenuProductoController.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Desktop/proyect/Proyecto-KDshop/Proyecto-KDshop/src/org/durias/controller/MenuPrincipalControlador.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Desktop/proyect/Proyecto-KDshop/Proyecto-KDshop/src/org/durias/controller/TipoDeProductoControlador.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Desktop/proyect/Proyecto-KDshop/Proyecto-KDshop/src/org/durias/bean/Compras.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Desktop/proyect/Proyecto-KDshop/Proyecto-KDshop/src/org/durias/controller/MenuProveedoresControlador.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Desktop/proyect/Proyecto-KDshop/Proyecto-KDshop/src/org/durias/system/Principal.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Desktop/proyect/Proyecto-KDshop/Proyecto-KDshop/src/org/durias/bean/DetalleCompra.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Desktop/proyect/Proyecto-KDshop/Proyecto-KDshop/src/org/durias/controller/MenuClientesController.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Desktop/proyect/Proyecto-KDshop/Proyecto-KDshop/src/org/durias/bean/Clientes.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Desktop/proyect/Proyecto-KDshop/Proyecto-KDshop/src/org/durias/controller/MenuEmpleadosControlador.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Desktop/proyect/Proyecto-KDshop/Proyecto-KDshop/src/org/durias/controller/ComprasControlador.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Desktop/proyect/Proyecto-KDshop/Proyecto-KDshop/src/org/durias/controller/ProgramadorController.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Desktop/proyect/Proyecto-KDshop/Proyecto-KDshop/src/org/durias/report/GenerarReportes.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

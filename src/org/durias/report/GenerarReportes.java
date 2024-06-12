@@ -16,12 +16,7 @@ import org.durias.db.Conexion;
 /**
  *
  * @author andre
- * 
- * Esta parte del codigo se la pedi a Artiga por que me  
- * quede Atras en clase y no termine de copiarla
  */
-
-
 public class GenerarReportes {
     public static void mostrarReportes(String nombreReporte, String titulo, Map parametros){
         InputStream reporte  = GenerarReportes.class.getResourceAsStream(nombreReporte);

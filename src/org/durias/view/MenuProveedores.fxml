@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="1162.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.durias.controller.MenuProveedoresControlador">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="1162.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.durias.controller.MenuProveedoresControlador">
    <children>
       <ImageView fitHeight="668.0" fitWidth="1162.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -92,7 +92,7 @@
          </rowConstraints>
          <children>
             <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#editar" prefHeight="47.0" prefWidth="200.0" text="UPDATE" />
-            <Button fx:id="btnReporte" mnemonicParsing="false" prefHeight="46.0" prefWidth="200.0" text="REPORTE" GridPane.rowIndex="1" />
+            <Button fx:id="btnReporte" mnemonicParsing="false" onAction="#reportes" prefHeight="46.0" prefWidth="200.0" text="REPORTE" GridPane.rowIndex="1" />
             <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#Agregar" prefHeight="47.0" prefWidth="200.0" text="ADD" GridPane.rowIndex="2" />
             <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminar" prefHeight="51.0" prefWidth="200.0" text="DELETE" GridPane.rowIndex="3" />
          </children>

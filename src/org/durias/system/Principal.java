@@ -20,6 +20,7 @@ import org.durias.controller.CargoEmpleadoControlador;
 import org.durias.controller.MenuClientesController;
 import org.durias.controller.MenuDetalleCompraControlador;
 import org.durias.controller.MenuEmpleadosControlador;
+import org.durias.controller.MenuFacturasController;
 import org.durias.controller.MenuPrincipalControlador;
 import org.durias.controller.MenuProductoController;
 import org.durias.controller.MenuProveedoresControlador;
@@ -148,6 +149,15 @@ public class Principal extends Application {
         try {
             MenuEmpleadosControlador empleado = (MenuEmpleadosControlador)cambiarEscena("MenuEmpleados.fxml", 1175, 597);
             empleado.setEscenarioPrincipal(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void Factura(){
+        try {
+            MenuFacturasController factura = (MenuFacturasController)cambiarEscena("MenuFactura.fxml", 979, 558);
+            factura.setEscenarioPrincipal(this);
         }catch(Exception e){
             e.printStackTrace();
         }

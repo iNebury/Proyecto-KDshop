@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +25,7 @@ import org.durias.bean.Producto;
 import org.durias.bean.Proveedores;
 import org.durias.bean.TipoDeProducto;
 import org.durias.db.Conexion;
+import org.durias.report.GenerarReportes;
 import org.durias.system.Principal;
 
 public class MenuProductoController implements Initializable {
@@ -384,6 +387,30 @@ public class MenuProductoController implements Initializable {
                 System.out.println("Debe seleccionar un elemento.");
             }
         }
+    }
+    
+    public void reportes() {
+        switch (tipoDeOperaciones) {
+            case NULL:
+                imprimirReporte();
+                break;
+            case ACTUALIZAR:
+                desactivarControles();
+                limpiarControles();
+                btnEditar.setText("Editar");
+                btnReporte.setText("Reportes");
+                btnAgregar.setDisable(false);
+                btnEliminar.setDisable(false);
+                tipoDeOperaciones = operaciones.NULL;
+                cargarDatos();
+                break;
+        }
+    }
+
+    public void imprimirReporte(){
+        Map parametros = new HashMap();
+        parametros.put("codigoProducto", null);
+        GenerarReportes.mostrarReportes("reportProveedores.jasper", "Reporte de Proveedores", parametros);
     }
         
     public void activarControles() {

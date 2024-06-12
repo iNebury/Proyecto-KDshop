@@ -2,38 +2,32 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteClientes" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="987539a2-8498-4d99-bf26-65c1541bf940">
 	<property name="ireport.zoom" value="1.1"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="144"/>
+	<property name="ireport.y" value="714"/>
 	<queryString>
-		<![CDATA[CALL sp_listarProveedores()]]>
+		<![CDATA[CALL sp_listarProductos()]]>
 	</queryString>
+	<field name="codigoProducto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descripcionProducto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precioUnitario" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precioDocena" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precioMayor" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="existencia" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigoTipoProducto" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="codigoProveedor" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="NITProveedor" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="nombresProveedor" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="apellidosProveedor" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="direccionProveedor" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="razonSocial" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="contactoPrincipal" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="paginaWeb" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="telefonoProveedor" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="emailProveedor" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<variable name="codigoCliente_1" class="java.lang.Integer" resetType="Column" calculation="Sum">
@@ -43,27 +37,27 @@
 		<band height="802" splitType="Stretch">
 			<image scaleImage="FillFrame">
 				<reportElement x="0" y="0" width="555" height="802" uuid="04255c14-3ff5-4761-b86d-a4112794ad1e"/>
-				<imageExpression><![CDATA["C:\\Users\\Urias\\Desktop\\Repositorio\\Proyecto-KDshop\\src\\org\\durias\\images\\informesProveedores.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["C:\\Users\\Javier\\OneDrive - Fundación Kinal -Alumnos-\\Desktop\\neburi\\Proyecto-KDshop\\src\\org\\durias\\images\\informeProducto.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</background>
 	<title>
 		<band height="331" splitType="Stretch">
 			<textField>
-				<reportElement x="82" y="311" width="100" height="20" uuid="eecf00c0-9795-4323-bdb5-8a8c93556550"/>
-				<textFieldExpression><![CDATA[$F{codigoProveedor}]]></textFieldExpression>
+				<reportElement x="84" y="311" width="100" height="20" uuid="8fbff312-0199-4f3a-854c-447ea5c157d8"/>
+				<textFieldExpression><![CDATA[$F{codigoProducto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="182" y="311" width="100" height="20" uuid="5bdbfc21-cb6d-40c1-906c-7b5412b0a2fb"/>
-				<textFieldExpression><![CDATA[$F{telefonoProveedor}]]></textFieldExpression>
+				<reportElement x="153" y="311" width="100" height="20" uuid="dc226439-5ca3-4c9b-aa62-3ed860b94117"/>
+				<textFieldExpression><![CDATA[$F{descripcionProducto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="310" y="311" width="100" height="20" uuid="2e8dd9e2-0976-4608-b75e-33af6615e043"/>
-				<textFieldExpression><![CDATA[$F{nombresProveedor}]]></textFieldExpression>
+				<reportElement x="253" y="311" width="100" height="20" uuid="401fac72-fa97-4688-b6ba-2f0fa40fdfa4"/>
+				<textFieldExpression><![CDATA[$F{precioUnitario}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="431" y="311" width="100" height="20" uuid="6226bd56-5628-44c0-9166-f0bb0ec061ce"/>
-				<textFieldExpression><![CDATA[$F{apellidosProveedor}]]></textFieldExpression>
+				<reportElement x="364" y="311" width="100" height="20" uuid="ea00aa8f-3784-4207-97f8-dbd57bf9aa3b"/>
+				<textFieldExpression><![CDATA[$F{codigoTipoProducto}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

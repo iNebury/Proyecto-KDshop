@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane layoutX="10.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1162.0" stylesheets="@../resource/FrescoMarket.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.durias.controller.MenuProductoController">
+<AnchorPane layoutX="10.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1162.0" stylesheets="@../resource/FrescoMarket.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.durias.controller.MenuProductoController">
    <children>
       <ImageView fitHeight="597.0" fitWidth="1175.0" layoutX="-11.0" layoutY="-19.0" pickOnBounds="true">
          <image>
@@ -85,10 +85,9 @@
         </rowConstraints>
          <children>
             <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#editar" prefHeight="47.0" prefWidth="200.0" text="UPDATE" />
-            <Button fx:id="btnReporte" mnemonicParsing="false" prefHeight="46.0" prefWidth="200.0" text="REPORTE" GridPane.rowIndex="1" />
+            <Button fx:id="btnReporte" mnemonicParsing="false" onAction="#reportes" prefHeight="46.0" prefWidth="200.0" text="REPORTE" GridPane.rowIndex="1" />
             <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#Agregar" prefHeight="47.0" prefWidth="200.0" text="ADD" GridPane.rowIndex="2" />
             <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminar" prefHeight="51.0" prefWidth="200.0" text="DELETE" GridPane.rowIndex="3" />
-            <Label alignment="CENTER" contentDisplay="CENTER" text="codigoProveedor" />
          </children>
       </GridPane>
       <Button fx:id="btnRegresar" layoutX="91.0" layoutY="437.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="38.0" prefWidth="74.0" text="BACK" />
